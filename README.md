@@ -1,66 +1,67 @@
-# MPV Player - Chrome Extension
+# MPV 视频播放器 - Chrome 扩展
 
-Send web video URLs directly to [MPV](https://mpv.io/) player with optional cookies. Supports all Chromium-based browsers (Chrome, Brave, Edge, Vivaldi, Opera, etc).
+将网页视频链接推送给 [MPV](https://mpv.io/) 播放器，支持可选传递 Cookie。兼容所有 Chromium 内核浏览器（Chrome / Brave / Edge / Vivaldi / Opera 等）。
 
-## Features
+## 功能
 
-- **One-click play** — floating button on video pages, sends URL to MPV
-- **Smart media capture** — detects `.m3u8/.mp4/.webm` links via `webRequest` API (FetchV-style)
-- **Cookie support** — pass login cookies for restricted content (per-site toggle)
-- **Dual mode** — page URL mode (yt-dlp) or media URL mode (direct stream)
-- **Universal browser support** — one-click registration for any Chromium browser
+- **一键播放** — 视频页面左下角悬浮按钮，点击推送给 MPV
+- **智能媒体捕获** — 通过 `webRequest` API 检测 `.m3u8/.mp4/.webm` 等视频链接（FetchV 方案）
+- **Cookie 支持** — 按网站规则独立控制是否传递登录 Cookie
+- **双模式** — 页面 URL 模式（依赖 yt-dlp 解析）/ 媒体 URL 模式（捕获直链播放）
+- **全浏览器通用** — 一键注册，适配所有 Chromium 内核浏览器
 
-## Quick Install
+## 快速安装
 
-### 1. Download
+### 1. 下载
 
-From [Releases](https://github.com/NuSYiXue/chrome-crx-mpv/releases):
-- `MPV-Player-v1.0.crx` — drag into `chrome://extensions`
-- `mpv_bridge.exe` + `setup.bat` — copy to your MPV installation folder
+从 [Releases](https://github.com/NuSYiXue/chrome-crx-mpv/releases) 下载：
+- `MPV-Player-v1.0.crx` — 拖入 `chrome://extensions` 安装
+- `mpv_bridge.exe` + `setup.bat` — 复制到 MPV 安装目录
 
-### 2. Setup Native Host
+### 2. 部署宿主
 
-Run `setup.bat` in MPV's folder, select `1` to register the `mpvreg://` protocol.
+在 MPV 目录运行 `setup.bat`，选 `1` 注册 `mpvreg://` 协议。
 
-### 3. Register Browser
+### 3. 注册浏览器
 
-1. Open the extension popup
-2. Open `chrome://version`, copy **Executable path**
-3. Paste into the popup, click **Register**
-4. Repeat for each browser
+1. 打开扩展弹窗
+2. 打开 `chrome://version`，复制**可执行文件路径**
+3. 粘贴到弹窗，点击**一键注册**
+4. 每个浏览器需单独注册一次
 
-## Usage
+## 使用说明
 
-| Button | Color | Meaning |
-|--------|-------|---------|
-| ▶ Play | Purple | Page URL mode (yt-dlp) |
-| ▶ Play | Green | Media URL ready |
-| ▶ Play | Gray | Waiting for media |
-| 🍪 Cookie | Orange/Gray | Per-rule cookie toggle |
-| ⚙ Settings | — | Manage rules |
+| 按钮 | 颜色 | 含义 |
+|------|------|------|
+| ▶ 播放 | 紫色 | 页面URL模式（靠 yt-dlp 解析） |
+| ▶ 播放 | 绿色 | 媒体URL已就绪，点击播放 |
+| ▶ 播放 | 灰色 | 等待捕获，请先播放视频 |
+| 🍪 Cookie | 橙色 | 传递 Cookie |
+| 🍪 Cookie | 灰色 | 不传 Cookie |
+| ⚙ 设置 | — | 管理匹配规则 |
 
-## Build from Source
+## 源码构建
 
-### Extension
-No build required. Load `MPV/` as unpacked extension in `chrome://extensions`.
+### 扩展
+无需构建。在 `chrome://extensions` 中加载 `MPV/` 文件夹即可。
 
-### Native Host (Rust)
+### Native Host（Rust）
 ```bash
 cd MPV-bridge
 cargo build --release
-# Output: target/release/mpv_bridge.exe
+# 输出: target/release/mpv_bridge.exe
 ```
 
-## Architecture
+## 架构
 
 ```
-Web Page → content.js (UI)
-              ↓
-         background.js (webRequest capture + Cookie + Native Messaging)
-              ↓
-         mpv_bridge.exe (Rust NMH)
-              ↓
-         mpv.exe --ytdl-raw-options-append=cookies=...
+网页 → content.js（UI 按钮 + 设置面板）
+           ↓
+      background.js（webRequest 媒体捕获 + Cookie + Native Messaging）
+           ↓
+      mpv_bridge.exe（Rust 编写，296KB，无依赖）
+           ↓
+      mpv.exe --ytdl-raw-options-append=cookies=...
 ```
 
 ## License
