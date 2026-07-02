@@ -14,11 +14,9 @@
 
 ### 1. 下载安装
 
-从 [Releases](https://github.com/NuSYiXue/chrome-crx-mpv/releases) 下载 `MPV-Player-v1.0.1.zip`，解压。
+从 [Releases](https://github.com/NuSYiXue/chrome-crx-mpv/releases) 下载 `MPV-Player-v1.0.1.crx`，拖入 `chrome://extensions` 安装。
 
-打开 `chrome://extensions` → 开启开发者模式 → 加载已解压的扩展程序 → 选择解压出的文件夹。
-
-> 如 .crx 安装后无法启用，改用此方式。
+如果安装后无法启用，改用 ZIP 方式：下载 `MPV-Player-v1.0.1.zip`，解压 → `chrome://extensions` → 开发者模式 → 加载已解压 → 选择解压出的文件夹。
 
 另外下载 `mpv_bridge.exe` + `setup.bat`，复制到 MPV 安装目录。
 
