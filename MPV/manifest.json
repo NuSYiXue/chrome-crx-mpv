@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "MPV 视频播放器",
+  "version": "1.0",
+  "description": "捕获网页视频URL，通过Native Messaging推送给MPV播放器播放。支持可选传递Cookie。",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    },
+    "default_popup": "popup.html",
+    "default_title": "MPV 播放器"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "js": ["content.js"],
+      "matches": ["<all_urls>"],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": [
+    "nativeMessaging",
+    "cookies",
+    "storage",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}

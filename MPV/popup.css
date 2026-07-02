@@ -1,0 +1,178 @@
+/* MPV 播放器 - Popup 样式 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 400px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  color: #1f2937;
+  background: #f9fafb;
+}
+
+.popup-container { padding: 16px; }
+
+/* 头部 */
+.header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 14px; padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.header .logo { font-size: 28px; }
+.header h1 { font-size: 18px; font-weight: 600; }
+
+/* 卡片 */
+.card {
+  background: #fff; border: 1px solid #e5e7eb;
+  border-radius: 10px; margin-bottom: 14px; overflow: hidden;
+}
+.card-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px; background: #f8fafc;
+  font-weight: 600; font-size: 13px; border-bottom: 1px solid #e5e7eb;
+}
+.card-body { padding: 12px 14px; }
+
+/* 状态徽章 */
+.badge {
+  font-size: 12px; padding: 3px 10px; border-radius: 12px;
+  font-weight: 500;
+}
+.badge-ok { background: #d1fae5; color: #065f46; }
+.badge-error { background: #fee2e2; color: #991b1b; }
+.badge-pending { background: #fef3c7; color: #92400e; }
+
+.text-ok { color: #065f46; font-size: 13px; }
+.text-warn { color: #b45309; font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+
+/* 步骤 */
+.steps {
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-radius: 8px; padding: 10px 12px; margin-bottom: 10px;
+}
+.step {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 5px 0; font-size: 13px; color: #1f2937;
+}
+.step-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 22px; height: 22px; border-radius: 50%;
+  background: #6366f1; color: white; font-size: 12px; font-weight: 700;
+  flex-shrink: 0;
+}
+.step code {
+  background: #e0e7ff; color: #4338ca; padding: 1px 5px; border-radius: 3px;
+  font-size: 12px; font-weight: 500;
+}
+
+/* 注册表单 */
+#profilePath {
+  width: 100%; padding: 8px 10px; margin-top: 6px;
+  border: 1px solid #d1d5db; border-radius: 8px; font-size: 13px;
+  font-family: inherit; resize: vertical; box-sizing: border-box;
+}
+#profilePath:focus {
+  outline: none; border-color: #a855f7; box-shadow: 0 0 0 2px rgba(168,85,247,0.2);
+}
+
+/* 通用 section */
+.section { margin-bottom: 14px; }
+.section h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #374151; }
+
+/* 开关 */
+.toggle-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; font-weight: 500;
+}
+.switch {
+  position: relative; display: inline-block; width: 44px; height: 24px;
+}
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+  position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #9ca3af; transition: 0.2s; border-radius: 24px;
+}
+.slider:before {
+  position: absolute; content: ""; height: 18px; width: 18px;
+  left: 3px; bottom: 3px; background-color: white;
+  transition: 0.2s; border-radius: 50%;
+}
+input:checked + .slider { background-color: #f59e0b; }
+input:checked + .slider:before { transform: translateX(20px); }
+
+.hint { font-size: 11px; color: #9ca3af; margin-top: 4px; }
+
+/* 规则列表 */
+.rules-list {
+  background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+  max-height: 150px; overflow-y: auto; margin-bottom: 8px;
+}
+.empty-hint { color: #9ca3af; text-align: center; padding: 16px; font-size: 13px; }
+.rule-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 10px; border-bottom: 1px solid #f3f4f6; gap: 6px;
+}
+.rule-item:last-child { border-bottom: none; }
+.rule-pattern {
+  font-size: 12px; color: #1f2937; word-break: break-all; flex: 1; min-width: 0;
+}
+.rule-mode {
+  font-size: 11px; padding: 2px 6px; border-radius: 4px;
+  color: white; white-space: nowrap; cursor: pointer; border: none;
+}
+.rule-cookie {
+  font-size: 14px; padding: 2px 6px; border-radius: 4px;
+  border: none; cursor: pointer; white-space: nowrap;
+  background: #e5e7eb; color: #6b7280;
+}
+.rule-mode.page { background: #a855f7; }
+.rule-mode.fetchv { background: #10b981; }
+.rule-del {
+  font-size: 11px; padding: 2px 6px; border-radius: 4px; border: none;
+  cursor: pointer; background: #fee2e2; color: #ef4444; white-space: nowrap;
+}
+.rule-del:hover { background: #fecaca; }
+
+/* 添加规则 */
+.add-rule { display: flex; gap: 6px; }
+.add-rule input {
+  flex: 1; min-width: 0; padding: 6px 10px;
+  border: 1px solid #d1d5db; border-radius: 6px; font-size: 13px;
+}
+.add-rule select {
+  padding: 6px 8px; border: 1px solid #d1d5db;
+  border-radius: 6px; font-size: 12px; background: white;
+}
+.add-rule button {
+  padding: 6px 12px; border: none; border-radius: 6px;
+  background: #a855f7; color: white; font-size: 16px;
+  cursor: pointer; font-weight: bold;
+}
+.add-rule button:hover { background: #9333ea; }
+
+/* 按钮 */
+.actions { margin-bottom: 12px; }
+.btn {
+  width: 100%; padding: 8px 0; border: none; border-radius: 8px;
+  font-size: 13px; cursor: pointer; font-weight: 500; text-align: center;
+}
+.btn-primary { background: #2563eb; color: white; }
+.btn-primary:hover { background: #1d4ed8; }
+.btn-sm { padding: 6px 12px; font-size: 12px; width: auto; }
+.btn-outline {
+  background: white; color: #374151; border: 1px solid #d1d5db;
+}
+.btn-outline:hover { background: #f3f4f6; }
+
+/* 安装说明 */
+.install-info { font-size: 12px; }
+.install-info details {
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-radius: 8px; padding: 8px 12px;
+}
+.install-info summary { cursor: pointer; font-weight: 500; color: #166534; }
+.install-content { margin-top: 8px; color: #374151; }
+.install-content ul, .install-content ol { padding-left: 20px; margin: 4px 0; }
+.install-content li { margin: 2px 0; }
+.install-content code {
+  background: #e5e7eb; padding: 1px 4px; border-radius: 3px; font-size: 11px;
+}

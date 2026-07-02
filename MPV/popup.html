@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MPV 播放器</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- 头部 -->
+    <div class="header">
+      <span class="logo">🎬</span>
+      <h1>MPV 播放器</h1>
+    </div>
+
+    <!-- ===== 注册引导卡片 ===== -->
+    <div class="card" id="registerCard">
+      <div class="card-header">
+        <span>🔌 Native Host 状态</span>
+        <span class="badge" id="hostBadge">检测中...</span>
+      </div>
+      <div class="card-body" id="registerBody">
+        <div id="registeredView" style="display:none">
+          <p class="text-ok">✅ Native Host 已就绪</p>
+          <p class="hint" style="margin-bottom:6px;">如需反注册：<button id="openVersionBtn2" class="btn btn-sm btn-outline" style="font-size:11px;padding:1px 6px;">📋 打开 chrome://version</button>，复制<b>可执行文件路径</b>粘贴到下方：</p>
+          <input type="text" id="exePathInputReg" style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:8px;font-size:12px;box-sizing:border-box;color:#374151;">
+          <div style="display:flex;gap:6px;margin-top:6px;">
+            <button id="recheckBtn" class="btn btn-sm btn-outline">🔄 重新检测</button>
+            <button id="unregisterBtn" class="btn btn-sm" style="background:#ef4444;color:white;">🗑 反注册</button>
+          </div>
+          <p class="hint" id="unregHint" style="margin-top:4px;"></p>
+        </div>
+        <div id="unregisteredView" style="display:none">
+          <p class="text-warn">⚠️ Native Host 未注册，请按以下步骤操作：</p>
+          <div class="steps">
+            <div class="step"><span class="step-num">1</span><span>将 <code>mpv_bridge.exe</code> + <code>setup.bat</code> 放到 <code>mpv.exe</code> 同目录，运行 <code>setup.bat</code> 选 <b>1</b></span></div>
+            <div class="step"><span class="step-num">2</span><span><button id="openVersionBtn" class="btn btn-sm btn-outline" style="font-size:12px;padding:1px 8px;">📋 打开 chrome://version</button>，复制<b>可执行文件路径</b></span></div>
+            <div class="step"><span class="step-num">3</span><span>粘贴到下方，点击<b>一键注册</b></span></div>
+          </div>
+          <input type="text" id="exePathInput" style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:8px;font-size:12px;box-sizing:border-box;color:#374151;">
+          <button id="registerBtn" class="btn btn-primary" style="margin-top:6px;">⚡ 一键注册</button>
+          <p class="hint" id="browserHint" style="margin-top:4px;"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 匹配规则 ===== -->
+    <div class="section">
+      <h3>🌐 匹配规则</h3>
+      <div class="rules-list" id="rulesList">
+        <div class="empty-hint">暂无规则</div>
+      </div>
+      <div class="add-rule">
+        <input type="text" id="newRulePattern" placeholder="URL前缀 或 /正则/">
+        <select id="newRuleMode">
+          <option value="page">📄 页面URL</option>
+          <option value="fetchv">🎯 媒体URL</option>
+        </select>
+        <button id="addRuleBtn">+</button>
+      </div>
+      <p class="hint">只有匹配规则的页面才会显示播放按钮。🍪 = 传Cookie，⬜ = 不传，点击切换</p>
+    </div>
+
+    <!-- ===== 操作按钮 ===== -->
+    <div class="actions">
+      <button id="saveBtn" class="btn btn-primary">💾 保存设置</button>
+    </div>
+
+    <!-- ===== 使用说明 ===== -->
+    <div class="install-info">
+      <details>
+        <summary>📖 使用说明</summary>
+        <div class="install-content">
+          <p>页面左下角出现按钮：</p>
+          <p>🟣 <b>紫色 ▶</b> = 页面URL模式（靠 yt-dlp 解析）</p>
+          <p>🟢 <b>绿色 ▶</b> = 媒体URL已就绪，点击播放</p>
+          <p>⬜ <b>灰色 ▶</b> = 等待捕获，请先播放视频</p>
+          <p>每条规则可独立设置是否传递 🍪 Cookie。</p>
+        </div>
+      </details>
+      <details>
+        <summary>🔧 安装步骤</summary>
+        <div class="install-content">
+          <p><b>1.</b> 将 mpv_bridge.exe + setup.bat 放到 mpv.exe 同目录，运行 setup.bat 选 1</p>
+          <p><b>2.</b> chrome://extensions → 开发者模式 → 加载已解压 → 选 MPV 文件夹</p>
+          <p><b>3.</b> chrome://version → 复制可执行文件路径 → 粘贴到上方 → 一键注册</p>
+          <p>每个浏览器需单独注册。注册完可运行 setup.bat 选 2 移除协议。</p>
+        </div>
+      </details>
+      <details>
+        <summary>❓ 常见问题</summary>
+        <div class="install-content">
+          <p><b>一键注册没反应？</b>先运行 setup.bat 选 1 注册协议。</p>
+          <p><b>播放失败？</b>页面URL模式需装 yt-dlp；媒体URL模式需开 Cookie。</p>
+          <p><b>换浏览器？</b>重跑 setup.bat 选 1，再在新浏览器中注册。</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# 构建产物
+*.zip
+*.crx
+*.pem
+*.exe
+MPV-bridge/target/
+
+# 参考文件
+refs-backup/
+refs/
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+
+# 临时日志
+cleanup.log
